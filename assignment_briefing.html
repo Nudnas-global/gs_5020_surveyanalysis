@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assignment Briefing – Graduate Student Futures Survey</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --ink-light: #4a4a6a;
+    --ink-faint: #8888aa;
+    --accent: #c0392b;
+    --accent-warm: #e67e22;
+    --accent-cool: #2980b9;
+    --accent-green: #1D9E75;
+    --paper: #faf9f6;
+    --paper-warm: #f5f0e8;
+    --paper-rule: #e8e4dc;
+    --cream: #fffdf8;
+    --border: #d4cfc6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── PAGE SHELL ── */
+  .page-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 0 28px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .masthead::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-warm) 50%, var(--accent-cool) 100%);
+  }
+  .course-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .masthead h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .masthead-sub {
+    font-size: 15px;
+    color: var(--ink-light);
+    margin-top: 6px;
+  }
+  .meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .meta-item { font-size: 13.5px; color: var(--ink-light); }
+  .meta-item strong { color: var(--ink); font-weight: 600; }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 16px;
+    margin-top: 40px;
+  }
+
+  h3 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    margin-top: 22px;
+  }
+
+  p { font-size: 16px; color: var(--ink-light); margin-bottom: 12px; line-height: 1.75; }
+  p strong { color: var(--ink); font-weight: 600; }
+
+  /* ── INFO BOX ── */
+  .info-box {
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent-cool);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .info-box p { margin-bottom: 6px; font-size: 15px; }
+  .info-box p:last-child { margin-bottom: 0; }
+
+  .warn-box {
+    background: #fff8f0;
+    border: 1px solid #f0d5b0;
+    border-left: 4px solid var(--accent-warm);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    color: #7a4f10;
+  }
+  .warn-box strong { color: #5c3a08; }
+
+  /* ── DATASET TABLE ── */
+  .var-section {
+    margin: 24px 0;
+  }
+  .var-group {
+    margin-bottom: 28px;
+  }
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .group-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .pill-a { background: #e8f4fd; color: #1a5f8a; }
+  .pill-b { background: #edf7f0; color: #1a6b45; }
+  .pill-c { background: #f5eefe; color: #5a3d8a; }
+  .pill-d { background: #fef5e8; color: #8a4a1a; }
+
+  .group-title { font-size: 14px; font-weight: 600; color: var(--ink-light); }
+
+  .var-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .var-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--paper-rule);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--border);
+  }
+  .var-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eeebe5;
+    vertical-align: top;
+  }
+  .var-table tr:last-child td { border-bottom: none; }
+  .var-table td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent-cool);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .type-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .t-cat  { background: #eeedfe; color: #534AB7; }
+  .t-ord  { background: #faeeda; color: #854F0B; }
+  .t-bin  { background: #fce8e8; color: #a32d2d; }
+  .t-scale { background: #e1f5ee; color: #0F6E56; }
+  .t-text { background: #e8f4f8; color: #1a5a6a; }
+
+  /* ── RESEARCH QUESTIONS ── */
+  .rq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+  @media (max-width: 600px) { .rq-grid { grid-template-columns: 1fr; } }
+
+  .rq-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .rq-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+  .rq-a::before { background: var(--accent-cool); }
+  .rq-b::before { background: var(--accent-green); }
+  .rq-c::before { background: var(--accent-warm); }
+  .rq-d::before { background: var(--accent); }
+  .rq-e::before { background: #9b59b6; }
+  .rq-f::before { background: #16a085; }
+
+  .rq-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .rq-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .rq-card p { font-size: 13.5px; margin-bottom: 6px; line-height: 1.6; }
+  .rq-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .tag-ttest { background: #e1f5ee; color: #0F6E56; }
+  .tag-anova { background: #eeedfe; color: #534AB7; }
+  .tag-mw    { background: #e8f4fd; color: #1a5f8a; }
+  .tag-kw    { background: #faeeda; color: #854F0B; }
+  .tag-corr  { background: #fce8e8; color: #a32d2d; }
+  .tag-spear { background: #e8f4f8; color: #1a5a6a; }
+
+  /* ── REPORT STRUCTURE ── */
+  .structure-list { margin: 16px 0; }
+  .struct-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .struct-item:last-child { border-bottom: none; }
+  .struct-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--border);
+    line-height: 1;
+    min-width: 36px;
+    padding-top: 2px;
+  }
+  .struct-content h4 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .struct-content p { font-size: 14px; margin-bottom: 0; }
+  .word-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--paper-rule);
+    color: var(--ink-faint);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ── MARKING RUBRIC ── */
+  .rubric-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0; }
+  .rubric-table th {
+    padding: 10px 14px;
+    background: var(--ink);
+    color: var(--paper);
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .rubric-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .rubric-table tr:nth-child(even) td { background: var(--paper-warm); }
+  .rubric-table tr:last-child td { border-bottom: none; }
+  .rubric-table td:nth-child(2) { font-weight: 600; color: var(--ink); text-align: center; white-space: nowrap; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; margin: 12px 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--ink-light);
+    padding: 6px 0;
+    border-bottom: 1px solid #f0ece5;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    background: white;
+  }
+
+  /* ── INTEGRITY BOX ── */
+  .integrity {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-top: 32px;
+  }
+  .integrity h3 { color: #f0f0e8; font-size: 14px; margin-bottom: 10px; margin-top: 0; }
+  .integrity p { color: #b0b0c0; font-size: 14px; margin-bottom: 8px; line-height: 1.7; }
+  .integrity p:last-child { margin-bottom: 0; }
+  .integrity strong { color: var(--paper); }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { font-size: 13px; }
+    .masthead::before { display: none; }
+    h2 { margin-top: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ── MASTHEAD ── -->
+  <header class="masthead">
+    <div class="course-tag">Quantitative Methods &nbsp;·&nbsp; Individual Assignment</div>
+    <h1>Graduate Student Futures:<br><em>A Short Research Report</em></h1>
+    <p class="masthead-sub">Using real survey data to practise inferential statistics in Excel</p>
+    <div class="meta-strip">
+      <div class="meta-item"><strong>Weighting:</strong> 30% of module grade</div>
+      <div class="meta-item"><strong>Word limit:</strong> 1,500 – 2,000 words (excl. tables & appendices)</div>
+      <div class="meta-item"><strong>Format:</strong> PDF submission via the course portal</div>
+      <div class="meta-item"><strong>Due:</strong> [Insert deadline]</div>
+    </div>
+  </header>
+
+  <!-- ── OVERVIEW ── -->
+  <div class="section-label">01 &nbsp; Overview</div>
+  <h2>What you are doing — and why</h2>
+  <p>In the lab exercises you practised quantitative techniques on a clean, well-known dataset. This assignment asks you to apply the same methods to <strong>messy, real-world data</strong> — a survey of graduate students about their career ambitions, perceived opportunities, and anticipated challenges.</p>
+  <p>You will choose a focused research question, select appropriate statistical tests, carry out the analysis in Excel, and write up your findings as a concise research report. The goal is not to produce a sweeping study; it is to demonstrate that you can <strong>reason carefully about which test to use, execute it correctly, and interpret the result honestly</strong>.</p>
+
+  <div class="info-box">
+    <p><strong>The dataset in brief.</strong> The file <em>Graduate_Students_Future_Ambitions_Survey.xlsx</em> contains responses from <strong>30 graduate students</strong> at a single university. The survey was completed in May 2026 and covers four thematic sections: (A) demographic profile, (B) career aspirations, (C) perceived opportunities, and (D) anticipated challenges. All responses are anonymous.</p>
+  </div>
+
+  <!-- ── DATASET ── -->
+  <div class="section-label">02 &nbsp; Dataset guide</div>
+  <h2>Variables at a glance</h2>
+  <p>The table below maps every column you will encounter in the spreadsheet. Use this as your reference when deciding which variables suit your research question.</p>
+
+  <div class="var-section">
+
+    <!-- Section A -->
+    <div class="var-group">
+      <div class="group-header">
+        <span class="group-pill pill-a">Section A</span>
+        <span class="group-title">Respondent profile (demographics)</span>
+      </div>
+      <table class="var-table">
+        <thead><tr><th>Column name</th><th>What it measures</th><th>Type</th><th>Values / notes</th></tr></thead>
+        <tbody>
+          <tr><td>a1_age</td><td>Age group</td><td><span class="type-badge t-ord">ordinal</span></td><td>under25 · 2529 · 3034 · 3539 · 40plus</td></tr>
+          <tr><td>a2_gender</td><td>Gender</td><td><span class="type-badge t-cat">categorical</span></td><td>male · female</td></tr>
+          <tr><td>a3_nationality</td><td>Student type</td><td><span class="type-badge t-bin">binary</span></td><td>domestic · international</td></tr>
+          <tr><td>a4_study_level</td><td>Current qualification</td><td><span class="type-badge t-ord">ordinal</span></td><td>degree · masters · doctoral</td></tr>
+          <tr><td>a5_field_study</td><td>Academic discipline</td><td><span class="type-badge t-cat">categorical</span></td><td>stem · arts · social_hum · law · other</td></tr>
+          <tr><td>a6_study_year</td><td>Year of study</td><td><span class="type-badge t-ord">ordinal</span></td><td>first · second · final · third_plus</td></tr>
+          <tr><td>a7_study_mode</td><td>Mode of attendance</td><td><span class="type-badge t-cat">categorical</span></td><td>fulltime · parttime · blended</td></tr>
+          <tr><td>a8_employment</td><td>Current employment</td><td><span class="type-badge t-cat">categorical</span></td><td>fulltime · parttime · no · not_related</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section B -->
+    <div class="var-group">
+      <div class="group-header">
+        <span class="group-pill pill-b">Section B</span>
+        <span class="group-title">Career aspirations</span>
+      </div>
+      <table class="var-table">
+        <thead><tr><th>Column name</th><th>What it measures</th><th>Type</th><th>Values / notes</th></tr></thead>
+        <tbody>
+          <tr><td>b1_career</td><td>Intended career path</td><td><span class="type-badge t-cat">categorical</span></td><td>academic · industry · government · entrepreneur · freelance · undecided</td></tr>
+          <tr><td>b2_location</td><td>Preferred post-graduation location</td><td><span class="type-badge t-cat">categorical</span></td><td>home · study_country · third · undecided</td></tr>
+          <tr><td>b3_clarity</td><td>Career-direction clarity</td><td><span class="type-badge t-scale">scale 1–5</span></td><td>1 = very unclear · 5 = very clear — <em>treat as continuous for analysis</em></td></tr>
+          <tr><td>b4_plan</td><td>Level of career planning</td><td><span class="type-badge t-ord">ordinal</span></td><td>no_plan · rough · detailed</td></tr>
+          <tr><td>b5_timeframe</td><td>Job-securing timeframe target</td><td><span class="type-badge t-ord">ordinal</span></td><td>within1 · 1–3 · 3–5 · over5 years</td></tr>
+          <tr><td>b6_sector/[name]</td><td>Target sector (multi-select)</td><td><span class="type-badge t-bin">binary</span></td><td>One column per sector — 1 = selected, 0 = not selected</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section C -->
+    <div class="var-group">
+      <div class="group-header">
+        <span class="group-pill pill-c">Section C</span>
+        <span class="group-title">Perceived opportunities</span>
+      </div>
+      <table class="var-table">
+        <thead><tr><th>Column name</th><th>What it measures</th><th>Type</th><th>Values / notes</th></tr></thead>
+        <tbody>
+          <tr><td>c1_qual_doors</td><td>"My qualification will open doors"</td><td><span class="type-badge t-scale">scale 1–5</span></td><td>1 = strongly disagree · 5 = strongly agree</td></tr>
+          <tr><td>c2_network_aware</td><td>Awareness of professional networks</td><td><span class="type-badge t-scale">scale 1–5</span></td><td>1 = not at all aware · 5 = very aware</td></tr>
+          <tr><td>c3_opps/[name]</td><td>Opportunities accessed (multi-select)</td><td><span class="type-badge t-bin">binary</span></td><td>internship · research_collab · publication · conferences · mentoring · startup · none</td></tr>
+          <tr><td>c5_job_market</td><td>Perceived state of job market</td><td><span class="type-badge t-ord">ordinal</span></td><td>limited · somewhat · many</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section D -->
+    <div class="var-group">
+      <div class="group-header">
+        <span class="group-pill pill-d">Section D</span>
+        <span class="group-title">Anticipated challenges</span>
+      </div>
+      <table class="var-table">
+        <thead><tr><th>Column name</th><th>What it measures</th><th>Type</th><th>Values / notes</th></tr></thead>
+        <tbody>
+          <tr><td>d1_challenges/financial</td><td>Financial constraints flagged</td><td><span class="type-badge t-bin">binary</span></td><td>1 = selected as a challenge, 0 = not</td></tr>
+          <tr><td>d1_challenges/network</td><td>Lack of networks flagged</td><td><span class="type-badge t-bin">binary</span></td><td>1 = selected, 0 = not</td></tr>
+          <tr><td>d1_challenges/experience</td><td>Lack of experience flagged</td><td><span class="type-badge t-bin">binary</span></td><td>1 = selected, 0 = not</td></tr>
+          <tr><td>d1_challenges/mental_health</td><td>Mental health pressures flagged</td><td><span class="type-badge t-bin">binary</span></td><td>1 = selected, 0 = not</td></tr>
+          <tr><td>d1_challenges/discrimination</td><td>Discrimination concerns flagged</td><td><span class="type-badge t-bin">binary</span></td><td>1 = selected, 0 = not</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── RESEARCH QUESTIONS ── -->
+  <div class="section-label">03 &nbsp; Research questions</div>
+  <h2>Choose one research question</h2>
+  <p>Select <strong>exactly one</strong> of the six options below. Your chosen question determines which statistical tests you will run. Each question is designed to require <strong>at least two distinct tests</strong> from the techniques covered in the lab — you must run both and report both.</p>
+
+  <div class="info-box">
+    <p><strong>You may adapt the wording</strong> of your chosen question slightly to sharpen the focus, but the core variables and required tests must remain the same. Note your chosen question and RQ number at the top of your report.</p>
+  </div>
+
+  <div class="rq-grid">
+
+    <div class="rq-card rq-a">
+      <div class="rq-num">RQ 1</div>
+      <h4>Does gender shape career-direction clarity and planning level among graduate students?</h4>
+      <p><strong>Variables:</strong> b3_clarity (scale), b4_plan (ordinal), a2_gender (binary)</p>
+      <p><strong>Required tests:</strong></p>
+      <span class="rq-tag tag-ttest">Independent t-test</span>
+      <span class="rq-tag tag-mw">Mann-Whitney U</span>
+      <p style="margin-top:8px; font-size:13px;">Compare <em>b3_clarity</em> across genders with a t-test; compare the ordinal <em>b4_plan</em> with Mann-Whitney U.</p>
+    </div>
+
+    <div class="rq-card rq-b">
+      <div class="rq-num">RQ 2</div>
+      <h4>Do students at different qualification levels differ in how confidently they view their career prospects?</h4>
+      <p><strong>Variables:</strong> c1_qual_doors (scale), c5_job_market (ordinal), a4_study_level (3 groups)</p>
+      <p><strong>Required tests:</strong></p>
+      <span class="rq-tag tag-anova">One-way ANOVA</span>
+      <span class="rq-tag tag-kw">Kruskal-Wallis</span>
+      <p style="margin-top:8px; font-size:13px;">Use ANOVA for the scale variable and Kruskal-Wallis for the ordinal variable across degree / masters / doctoral groups.</p>
+    </div>
+
+    <div class="rq-card rq-c">
+      <div class="rq-num">RQ 3</div>
+      <h4>Is career-direction clarity related to qualification confidence and network awareness?</h4>
+      <p><strong>Variables:</strong> b3_clarity, c1_qual_doors, c2_network_aware (all scale 1–5)</p>
+      <p><strong>Required tests:</strong></p>
+      <span class="rq-tag tag-corr">Pearson correlation</span>
+      <span class="rq-tag tag-spear">Spearman ρ</span>
+      <p style="margin-top:8px; font-size:13px;">Calculate Pearson r for both pairs; then re-run as Spearman ρ to check robustness. Compare and explain any differences.</p>
+    </div>
+
+    <div class="rq-card rq-d">
+      <div class="rq-num">RQ 4</div>
+      <h4>Does employment status during study affect students' career-clarity scores and job-market perceptions?</h4>
+      <p><strong>Variables:</strong> b3_clarity (scale), c5_job_market (ordinal), a8_employment (categories)</p>
+      <p><strong>Required tests:</strong></p>
+      <span class="rq-tag tag-anova">One-way ANOVA</span>
+      <span class="rq-tag tag-kw">Kruskal-Wallis</span>
+      <p style="margin-top:8px; font-size:13px;">Group students by employment status (fulltime / parttime / none / not_related) and compare across both outcome variables.</p>
+    </div>
+
+    <div class="rq-card rq-e">
+      <div class="rq-num">RQ 5</div>
+      <h4>Do full-time and part-time students differ in their perceived qualification value and network awareness?</h4>
+      <p><strong>Variables:</strong> c1_qual_doors, c2_network_aware (scale), a7_study_mode (recode to 2 groups)</p>
+      <p><strong>Required tests:</strong></p>
+      <span class="rq-tag tag-ttest">Independent t-test</span>
+      <span class="rq-tag tag-corr">Pearson correlation</span>
+      <p style="margin-top:8px; font-size:13px;">Compare the two groups with a t-test for each scale variable; then explore whether qualification confidence and network awareness correlate regardless of mode.</p>
+    </div>
+
+    <div class="rq-card rq-f">
+      <div class="rq-num">RQ 6</div>
+      <h4>Does field of study (STEM vs. non-STEM) predict how students rate career clarity and opportunity access?</h4>
+      <p><strong>Variables:</strong> b3_clarity (scale), c2_network_aware (scale), a5_field_study (recode to STEM / non-STEM)</p>
+      <p><strong>Required tests:</strong></p>
+      <span class="rq-tag tag-ttest">Independent t-test</span>
+      <span class="rq-tag tag-mw">Mann-Whitney U</span>
+      <p style="margin-top:8px; font-size:13px;">Compare b3_clarity with an independent t-test; use Mann-Whitney U for c2_network_aware given possible skew. State your assumptions.</p>
+    </div>
+
+  </div>
+
+  <!-- ── WHAT TO DO ── -->
+  <div class="section-label">04 &nbsp; Analysis requirements</div>
+  <h2>What your analysis must include</h2>
+
+  <p>Regardless of which research question you choose, your analysis must satisfy all of the following requirements.</p>
+
+  <h3>Descriptive statistics (for each variable used)</h3>
+  <ul class="checklist">
+    <li><div class="check-box"></div>Sample size (n), mean, standard deviation for any scale/continuous variable</li>
+    <li><div class="check-box"></div>Frequency counts and percentages for any categorical or ordinal variable</li>
+    <li><div class="check-box"></div>At least one clearly labelled table or chart to summarise your sample</li>
+  </ul>
+
+  <h3>Assumption checking (before each inferential test)</h3>
+  <ul class="checklist">
+    <li><div class="check-box"></div>State which assumptions apply to your chosen test (e.g. normality, equal variances)</li>
+    <li><div class="check-box"></div>Use at least one method to check normality for scale variables (histogram, or note sample size and invoke CLT)</li>
+    <li><div class="check-box"></div>Justify your choice of parametric vs. non-parametric test for each analysis</li>
+  </ul>
+
+  <h3>Inferential tests</h3>
+  <ul class="checklist">
+    <li><div class="check-box"></div>Run both required tests as specified in your chosen RQ</li>
+    <li><div class="check-box"></div>Report the test statistic, degrees of freedom (where applicable), and exact p-value for each test</li>
+    <li><div class="check-box"></div>State the null and alternative hypothesis for each test</li>
+    <li><div class="check-box"></div>For correlation: report both r and r², and test for statistical significance</li>
+    <li><div class="check-box"></div>Use α = 0.05 as your significance threshold throughout</li>
+  </ul>
+
+  <h3>Interpretation</h3>
+  <ul class="checklist">
+    <li><div class="check-box"></div>For each test: state whether you reject or fail to reject the null hypothesis, and say what that means in plain English about graduate students</li>
+    <li><div class="check-box"></div>Discuss any limitations (small n, non-normal data, single-university sample)</li>
+    <li><div class="check-box"></div>Do not over-claim causation from a cross-sectional survey</li>
+  </ul>
+
+  <!-- ── REPORT STRUCTURE ── -->
+  <div class="section-label">05 &nbsp; Report structure</div>
+  <h2>How to structure your report</h2>
+  <p>Your report should follow the structure below. Sections 2–4 carry most of the marks.</p>
+
+  <div class="structure-list">
+    <div class="struct-item">
+      <div class="struct-num">1</div>
+      <div class="struct-content">
+        <h4>Introduction <span class="word-badge">~200 words</span></h4>
+        <p>State your chosen research question (RQ number and full text). Briefly explain why it is worth investigating based on what the survey measures. End with a clear statement of your two null hypotheses, one per test.</p>
+      </div>
+    </div>
+    <div class="struct-item">
+      <div class="struct-num">2</div>
+      <div class="struct-content">
+        <h4>Data &amp; Method <span class="word-badge">~300 words</span></h4>
+        <p>Describe the dataset (who completed it, when, how many respondents). Identify your outcome and grouping variables, including how you recoded any variables (e.g. STEM / non-STEM). Justify which tests you chose and confirm which assumptions you checked. Show a descriptive statistics table here.</p>
+      </div>
+    </div>
+    <div class="struct-item">
+      <div class="struct-num">3</div>
+      <div class="struct-content">
+        <h4>Results <span class="word-badge">~600 words</span></h4>
+        <p>Present each test in turn. Lead with the test name, null hypothesis, key statistic, and p-value. Include a formatted results table or extracted Excel output in an appendix (referenced here). Write a one- to two-sentence plain-English interpretation for each result. For correlations, include a scatterplot.</p>
+      </div>
+    </div>
+    <div class="struct-item">
+      <div class="struct-num">4</div>
+      <div class="struct-content">
+        <h4>Discussion <span class="word-badge">~400 words</span></h4>
+        <p>Synthesise what your two results together say about graduate students' ambitions and experiences. Identify at least two limitations of the analysis. Suggest one follow-up question that your findings raise.</p>
+      </div>
+    </div>
+    <div class="struct-item">
+      <div class="struct-num">5</div>
+      <div class="struct-content">
+        <h4>Conclusion <span class="word-badge">~100 words</span></h4>
+        <p>Summarise your findings in no more than a short paragraph. No new information.</p>
+      </div>
+    </div>
+    <div class="struct-item">
+      <div class="struct-num">A</div>
+      <div class="struct-content">
+        <h4>Appendix — Excel output <span class="word-badge">not counted in word limit</span></h4>
+        <p>Paste your raw Excel output (Data Analysis dialog results, CORREL formula cells, etc.) as screenshots or a formatted table. Label each exhibit clearly: e.g. <em>Appendix A1: ANOVA output for RQ 2, b3_clarity by study level.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MARKING RUBRIC ── -->
+  <div class="section-label">06 &nbsp; Assessment</div>
+  <h2>Marking rubric</h2>
+
+  <table class="rubric-table">
+    <thead>
+      <tr>
+        <th>Criterion</th>
+        <th>Marks</th>
+        <th>What distinguishes a high mark</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Research question &amp; hypotheses</strong><br>Clear framing, correct null/alternative hypotheses stated</td>
+        <td>10</td>
+        <td>Hypotheses are precise, testable, and directly linked to the variables used</td>
+      </tr>
+      <tr>
+        <td><strong>Descriptive statistics</strong><br>Accurate summary of the variables; table/chart present</td>
+        <td>15</td>
+        <td>Appropriate statistics chosen for each variable type; table is clean and labelled</td>
+      </tr>
+      <tr>
+        <td><strong>Assumption checking</strong><br>Correct assumptions identified and checked</td>
+        <td>15</td>
+        <td>Student explicitly states and checks assumptions, not just lists them; justifies parametric vs. non-parametric choice</td>
+      </tr>
+      <tr>
+        <td><strong>Correct execution of tests</strong><br>Both required tests carried out in Excel</td>
+        <td>25</td>
+        <td>Test statistics and p-values are correct; Excel output included in appendix; no mechanical errors</td>
+      </tr>
+      <tr>
+        <td><strong>Interpretation &amp; discussion</strong><br>Results explained in context; limitations discussed</td>
+        <td>25</td>
+        <td>Rejection decisions are clear; interpretation is tied back to the graduate student context; limitations are specific and substantive</td>
+      </tr>
+      <tr>
+        <td><strong>Presentation &amp; writing</strong><br>Structure, clarity, referencing of appendices</td>
+        <td>10</td>
+        <td>Report reads clearly; sections are in order; appendices are labelled and referenced in the body</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── TIPS ── -->
+  <div class="section-label">07 &nbsp; Guidance</div>
+  <h2>Practical tips</h2>
+
+  <h3>Working with the small sample</h3>
+  <p>With only 30 respondents, some group comparisons (e.g. doctoral students vs. undergraduates) will have very small subgroups. This is fine — it is a real-world limitation you should name in your Discussion. <strong>Do not exclude groups to get cleaner results.</strong> Use what you have, report it honestly, and explain what a larger sample would allow you to say.</p>
+
+  <h3>Recoding variables</h3>
+  <p>Several questions require you to create a helper column in Excel. For example, for RQ 6 you need a binary STEM / non-STEM column. Add a new column labelled clearly (e.g. <em>stem_binary</em>), use an IF formula to recode, and <strong>describe your recoding rule in the Method section</strong>. Always work on a copy of the data sheet — do not overwrite the originals.</p>
+
+  <h3>Reporting numbers</h3>
+  <p>Round statistics to <strong>two decimal places</strong> in your report text (e.g. t(28) = 2.14, p = 0.04). For very small p-values write <em>p &lt; 0.001</em> rather than listing many decimal places. Always pair a test statistic with its p-value — never report one without the other.</p>
+
+  <h3>A word on sample size and power</h3>
+  <p>A non-significant result (p ≥ 0.05) with n = 30 does not prove there is no difference — it may simply mean the study was underpowered to detect a small effect. If your tests come back non-significant, discuss this as a limitation, <strong>not</strong> as proof of the null hypothesis being true.</p>
+
+  <div class="warn-box">
+    <strong>Common mistakes to avoid:</strong> (1) Running the wrong test for the variable type — check the lab guide's decision flowchart. (2) Forgetting to include Excel output in the appendix. (3) Confusing statistical significance with practical importance. (4) Claiming causation from a cross-sectional survey. (5) Reporting p = 0.000 — always write p &lt; 0.001 instead.
+  </div>
+
+  <!-- ── INTEGRITY ── -->
+  <div class="integrity">
+    <h3>Academic integrity</h3>
+    <p>You must conduct your own analysis independently. You may discuss the dataset and research questions with classmates, but your written report, Excel calculations, and interpretations must be entirely your own work.</p>
+    <p><strong>AI tools:</strong> You may use AI assistants to help you understand statistical concepts, but you may not use them to generate your results, write your interpretations, or draft sections of your report. Your submitted work must reflect your own analytical reasoning. Suspected contract cheating or AI-generated submission will be referred under the university's academic misconduct policy.</p>
+    <p>Attach a signed declaration of originality as the first page of your PDF submission.</p>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <div class="page-footer">
+    <span>Quantitative Methods · Individual Assignment Briefing</span>
+    <span>v1.0 · May 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
